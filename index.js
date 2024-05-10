@@ -9,7 +9,6 @@ app.use(cors());
 app.use(express.json());
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.ojv3wo1.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
-console.log(uri);
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -20,9 +19,16 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    console.log(
-      "Pinged your deployment. You successfully connected to MongoDB!"
-    );
+    
+    const BookCategory = client.db('Assignment-11').collection('Category')
+   
+    app.get('/cat', async(req,res)=>{
+        const result= await BookCategory.find({}).toArray();
+        res.send(result);
+    })
+
+
+    console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
   }
 }
