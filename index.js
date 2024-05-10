@@ -19,16 +19,28 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    
-    const BookCategory = client.db('Assignment-11').collection('Category')
-   
-    app.get('/cat', async(req,res)=>{
-        const result= await BookCategory.find({}).toArray();
-        res.send(result);
+    const BookCategory = client.db("Assignment-11").collection("Category");
+    const BookCollection = client.db("Assignment-11").collection("AllBooks");
+
+    app.get("/cat", async (req, res) => {
+      const result = await BookCategory.find({}).toArray();
+      res.send(result);
+    });
+
+    app.get('/books', async(req, res)=>{
+      const result =  await BookCollection.find().toArray();
+      res.send(result);
     })
 
+    app.post("/add", async (req, res) => {
+      const book = req.body;
+      const result = await BookCollection.insertOne(book);
+      res.send(result);
+    });
 
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+    console.log(
+      "Pinged your deployment. You successfully connected to MongoDB!"
+    );
   } finally {
   }
 }
