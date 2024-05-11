@@ -27,10 +27,17 @@ async function run() {
       res.send(result);
     });
 
-    app.get('/books', async(req, res)=>{
-      const result =  await BookCollection.find().toArray();
+    app.get("/books", async (req, res) => {
+      const result = await BookCollection.find().toArray();
       res.send(result);
-    })
+    });
+
+    app.get("/books/:category", async (req, res) => {
+      const findCategory = req.params.category;
+      const query = { category: findCategory };
+      const result = await BookCollection.find(query).toArray();
+      res.send(result);
+    });
 
     app.post("/add", async (req, res) => {
       const book = req.body;
