@@ -109,14 +109,14 @@ async function run() {
       res.send(result);
     })
 
-    //Delete Book Section : 
+    Delete Book Section : 
 
-    // app.delete("/returnBook/:id", async(req,res)=>{
-    //   const id = req.params.id;
-    //   const filter = { _id : new ObjectId(id)};
-    //   const result = await BorrowedCollection.deleteOne(filter);
-    //   res.send(result);
-    // })
+    app.delete("/returnBook/:id", async(req,res)=>{
+      const id = req.params.id;
+      const filter = { _id : new ObjectId(id)};
+      const result = await BorrowedCollection.deleteOne(filter);
+      res.send(result);
+    })
 
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
