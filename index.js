@@ -72,6 +72,11 @@ async function run() {
 
     })
 
+    app.get('/quan', async(req,res)=>{
+      const result = await BookCollection.find({ quantity :{ $gt : 0 }}).toArray()
+      res.send(result);
+    })
+
     //Post Book Section 
 
     app.post("/add", async (req, res) => {
@@ -109,7 +114,7 @@ async function run() {
       res.send(result);
     })
 
-    Delete Book Section : 
+    // Delete Book Section : 
 
     app.delete("/returnBook/:id", async(req,res)=>{
       const id = req.params.id;
